@@ -1,11 +1,12 @@
 # [@foldmaker/css-nested](https://www.npmjs.com/package/@foldmaker/css-nested)
 
-**@foldmaker/css-nested** is a plugin to unwrap nested CSS rules (like how SCSS does it). It's extremely lightweight (~65 lines uncommented). 
+**@foldmaker/css-nested** is a plugin to unwrap nested CSS rules (like SCSS). It's extremely lightweight (~65 lines without comments).
 This plugin does the following transforms:
+- Unwraps nested rules
 - Replaces '&' characters in the selectors with the parent selector's name
 - Removes comments and multiline comments
-- Splits comma-separated selectors into lines
-- Formatting: Removes excess whitespace, adds tabs
+- Formatting: Removes excess whitespace, adds tab characters
+- Formatting: Splits comma-separated selectors into lines
 
 
 
@@ -29,6 +30,9 @@ let result = cssNested(YOUR_CSS)
   &-header, &-sidebar {
     display: flex;
   }
+  img {
+    display: block;
+  }
   // Dashboard Content
   &-content {
     width: 100%;
@@ -46,6 +50,9 @@ will be processed to:
 .dashboard-header,
 .dashboard-sidebar {
 	display: flex;
+}
+.dashboard img {
+  display: block;
 }
 .dashboard-content {
 	width: 100%;
