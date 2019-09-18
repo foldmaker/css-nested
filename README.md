@@ -49,16 +49,16 @@ will be processed to:
 }
 .dashboard-header,
 .dashboard-sidebar {
-	display: flex;
+  display: flex;
 }
 .dashboard img {
   display: block;
 }
 .dashboard-content {
-	width: 100%;
+  width: 100%;
 }
 .dashboard-content__top {
-	border-radius: 5px;
-	padding: 5px;
+  border-radius: 5px;
+  padding: 5px;
 }
 ```
