@@ -3,7 +3,9 @@
 A plugin to unwrap nested CSS rules (like SCSS). It's extremely lightweight (~70 lines without comments).
 The plugin does the following transforms:
 - Unwraps nested rules
-- Replaces '&' characters in the selectors with the parent selector's name
+- Replaces '&' characters in the selectors with parent selector's name
+- If '&' character is not present, add parent selector’s name to the beginning
+- Adds semicolons after property names, if they are not present. (considers newline characters as delimiters if semicolons are absent)
 - Removes comments and multiline comments
 - Formatting: Removes excess whitespace, adds tab characters
 - Formatting: Splits comma-separated selectors into lines
