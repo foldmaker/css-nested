@@ -21,7 +21,6 @@ export let cssNested = string => {
       return { type, value }
     }
   )
-  console.log(tokens)
 
   let result = Foldmaker.from(tokens).parse(
     [
@@ -31,29 +30,40 @@ export let cssNested = string => {
     {
       BLOCK(result) {
         let body = result[2]
-        result.m[2].split('').forEach((el, i) => {
-          if (el === 'p') {
-            let temp = body[i]
-            // Adding semicolons after properties if necessary
-            if (temp[temp.length - 1] !== ';') body[i] = body[i] + ';'
-            // Some formatting on the fly
-            body[i] = '  ' + body[i]
-          } else if (el === '{') {
-            // More formatting
-            body[i] = ' ' + body[i]
+        let bodyMap = result.m[2]
+
+        bodyMap.split('').forEach((el, i) => {
+          switch (el) {
+            case 'p':
+              let temp = body[i]
+              // Adding semicolons after properties if necessary
+              if (temp[temp.length - 1] !== ';') body[i] = body[i] + ';'
+            case '{':
+              // Some formatting on the fly
+              body[i] = '  ' + body[i]
+            case '}':
+              body[i] = body[i] + '\n'
+              break
+            case 's':
+              body[i] = '  ' + body[i]
           }
         })
-        return {
-          selector: result[1].join('').split(','),
-          body
-        }
+
+        // Store selector names as an array, later to be joined with commas
+        let selector = result[1].map(el =>
+          el[el.length - 1] === ',' ? el.substring(0, el.length - 1) : el
+        )
+
+        return { selector, body }
       }
     }
   )
+
   let output = ''
 
   let traverseCallback = obj => {
-    output += obj.selector.join(',').trim() + obj.body.filter(el => el.length).join('')
+    output +=
+      obj.selector.join(',\n').trim() + obj.body.filter(el => typeof el === 'string').join('')
 
     traverseObjects(obj.body, childObj => {
       // Do selector parent-child prefix magic
@@ -70,8 +80,8 @@ export let cssNested = string => {
       traverseCallback(childObj)
     })
   }
-  traverseObjects(result, traverseCallback)
+  traverseObjects(result.array, traverseCallback)
 
   // Finalize by adding newline characters where necessary
-  return output.replace(/[{},;]/g, $1 => $1 + '\n')
+  return output //.replace(/[{};]/g, $1 => $1 + '\n')
 }
