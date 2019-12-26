@@ -48,12 +48,9 @@ export let cssNested = string => {
               body[i] = '  ' + body[i]
           }
         })
-
+        
         // Store selector names as an array, later to be joined with commas
-        let selector = result[1].map(el =>
-          el[el.length - 1] === ',' ? el.substring(0, el.length - 1) : el
-        )
-
+        let selector = result[1].map(el => el[el.length - 1] === ',' ? el.substring(0, el.length - 1) : el)
         return { selector, body }
       }
     }
@@ -83,5 +80,5 @@ export let cssNested = string => {
   traverseObjects(result.array, traverseCallback)
 
   // Finalize by adding newline characters where necessary
-  return output //.replace(/[{};]/g, $1 => $1 + '\n')
+  return output
 }
