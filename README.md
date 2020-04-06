@@ -10,16 +10,8 @@ The plugin does the following transforms:
 - Formatting: Removes excess whitespace, adds tab characters
 - Formatting: Splits comma-separated selectors into lines
 
-
-
 ## Usage
 
-This plugin can be installed with [npm](https://docs.npmjs.com/getting-started/what-is-npm), by the following command:
-
-```sh
-npm install @foldmaker/css-nested
-```
-Use to preprocess your nested CSS string:
 ```js
 import cssNested from '@foldmaker/css-nested'
 let result = cssNested(YOUR_CSS)
@@ -28,7 +20,7 @@ let result = cssNested(YOUR_CSS)
 
 ## Example
 ```scss
-.dashboard {
+.dashboard, custom {
   &-header, &-sidebar {
     display: flex;
   }
@@ -47,20 +39,26 @@ let result = cssNested(YOUR_CSS)
 ```
 will be processed to:
 ```css
-.dashboard {
+.dashboard,
+custom {
 }
 .dashboard-header,
-.dashboard-sidebar {
-  display: flex;
+.dashboard-sidebar,
+custom-header,
+custom-sidebar {
+display: flex;
 }
-.dashboard img {
-  display: block;
+.dashboard img,
+custom img {
+display: block;
 }
-.dashboard-content {
-  width: 100%;
+.dashboard-content,
+joe-content {
+width: 100%;
 }
-.dashboard-content__top {
-  border-radius: 5px;
-  padding: 5px;
+.dashboard-content__top,
+joe-content__top {
+border-radius: 5px;
+padding: 5px;
 }
 ```
