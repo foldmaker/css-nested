@@ -1,4 +1,4 @@
-# [@foldmaker/css-nested](https://www.npmjs.com/package/@foldmaker/css-nested)
+# @foldmaker/css-nested
 
 A plugin to unwrap nested CSS rules (like SCSS). It's extremely lightweight (~70 lines without comments).
 The plugin does the following transforms:
